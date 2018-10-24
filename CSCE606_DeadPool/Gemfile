@@ -42,6 +42,7 @@ gem 'cancancan' # for user class-based access
 
 gem 'rolify' # to define user classes
 gem 'delayed_job_active_record'
+gem 'pg', '~> 0.20'
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record
@@ -58,6 +59,5 @@ group :development, :test do
 end
 
 group :production do
-  gem 'pg'
   gem 'rails_12factor'
 end
