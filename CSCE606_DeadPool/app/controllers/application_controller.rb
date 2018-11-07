@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   before_filter :save_return_to
 
+  before_action :authenticate_user!
+
   def save_return_to
     if params[:return_to].present?
       session[:return_to] = params[:return_to]
@@ -19,5 +21,9 @@ class ApplicationController < ActionController::Base
     else
       redirect_to options
     end
+  end
+
+  def after_sign_up_path_for(user)
+      sign_out user
   end
 end
