@@ -27,3 +27,6 @@
               %li.divider
               %li
                 = link_to "Remove", admin_remove_user_path(user), :id => user.email+"remove"
+
+%h4
+  = link_to "Create New User", new_admin_path(:user)

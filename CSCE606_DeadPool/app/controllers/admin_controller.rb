@@ -53,6 +53,28 @@ class AdminController < ApplicationController
     redirect_to admin_index_path
   end
 
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation).to_h.symbolize_keys!
+  end
+
+  def new
+    @user = User.new
+    render layout: "layouts/centered_form"
+  end
+
+  def create
+    @user = User.new(user_params)
+    @user.save
+    if @user.errors.empty?
+      flash[:notice] = "New user created."
+      redirect_to admin_index_path
+    else
+      flash[:errors] = @user.errors
+      render 'new', layout: "layouts/centered_form"
+    end
+    
+  end
+
   def remove_user
     if verify_min_admin
       email = User.find(user_id).email
