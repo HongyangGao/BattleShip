@@ -6,6 +6,11 @@
       - inst_list("status = 'Current'").each  do |instructor|
         %li= link_to put_last_name(instructor.name), instructor_path(id: instructor.id)
         /- slice.each do |instructor|
+        = form_for instructor, method: :put, html: { } do |f|
+          .form-group
+            = f.select :status, options_for_select(["Current","Courtesy", "Inactive"], instructor.status), {}, class: "form-control"
+            = f.submit "Update", class: "btn btn-primary"
+        
         
 %h3 &nbsp;&nbsp;Courtesy
 .row
@@ -13,10 +18,9 @@
     %ul
       - inst_list("status = 'Courtesy'").each  do |instructor|
         %li= link_to put_last_name(instructor.name), instructor_path(id: instructor.id)
-
         = form_for instructor, method: :put, html: { } do |f|
           .form-group
-            = f.select :status, options_for_select(["Current", "Inactive"], instructor.status), {}, class: "form-control"
+            = f.select :status, options_for_select(["Courtesy", "Current", "Inactive"], instructor.status), {}, class: "form-control"
             = f.submit "Update", class: "btn btn-primary"
 
               
@@ -26,6 +30,11 @@
     %ul
       - inst_list("status = 'Inactive'").each  do |instructor|
         %li= link_to put_last_name(instructor.name), instructor_path(id: instructor.id)
+        = form_for instructor, method: :put, html: { } do |f|
+          .form-group
+            = f.select :status, options_for_select(["Inactive", "Current", "Courtesy"], instructor.status), {}, class: "form-control"
+            = f.submit "Update", class: "btn btn-primary"
+        
 %h3 &nbsp;&nbsp;Unsorted
 .row
   .col-md-4
