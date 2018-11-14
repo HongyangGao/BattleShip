@@ -9,6 +9,10 @@ class InstructorController < ApplicationController
     instructors_with_enrollment_data = Evaluation.no_missing_data.pluck(:instructor_id).uniq
     @instructors =Instructor.where(id: instructors_with_enrollment_data).sort { |a, b| a.name.split(" ").last <=> b.name.split(" ").last }
     #logger.debug "New name: #{@instructors}"
+    # if params[:status]
+    #   redirect_to instructor_index_path
+    #   redirect_to :back
+    # end
   end
 
   def show
@@ -23,7 +27,8 @@ class InstructorController < ApplicationController
     @instructor.assign_attributes({:status => params[:instructor][:status]})
     @instructor.save
 
-    redirect_to instructor_path(id)
+    # redirect_to instructor_path(id)
+    redirect_to instructor_index_path
   end
 
   def export
