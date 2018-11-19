@@ -28,8 +28,8 @@ class InstructorController < ApplicationController
     @instructor.assign_attributes({:status => params[:instructor][:status]})
     @instructor.save
 
-    # redirect_to instructor_path(id)
-    redirect_to instructor_index_path
+    redirect_to instructor_path(id)
+    # redirect_to instructor_index_path
   end
   
   def create

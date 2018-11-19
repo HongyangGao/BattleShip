@@ -3,25 +3,26 @@
 .row
   .col-md-4
     %ul
+    = form_tag instructor_index_path, method: :post do
       - inst_list("status = 'Current'").each  do |instructor|
-        %li= link_to put_last_name(instructor.name), instructor_path(id: instructor.id)
-        /- slice.each do |instructor|
-        = form_for instructor, method: :put, html: { } do |f|
-          .form-group
-            = f.select :status, options_for_select(["Current","Courtesy", "Inactive"], instructor.status), {}, class: "form-control"
-            = f.submit "Update", class: "btn btn-primary"
+        = check_box_tag "instructor_ids[]", instructor.id
+        = link_to put_last_name(instructor.name), instructor_path(id: instructor.id)
+        %br
+      = select_tag :status, options_for_select(["Inactive", "Current", "Courtesy"], "Current"), class: "form-control"
+      = submit_tag "Update", class: "btn btn-primary"
         
         
 %h3 &nbsp;&nbsp;Courtesy
 .row
   .col-md-4
     %ul
+    = form_tag instructor_index_path, method: :post do
       - inst_list("status = 'Courtesy'").each  do |instructor|
-        %li= link_to put_last_name(instructor.name), instructor_path(id: instructor.id)
-        = form_for instructor, method: :put, html: { } do |f|
-          .form-group
-            = f.select :status, options_for_select(["Courtesy", "Current", "Inactive"], instructor.status), {}, class: "form-control"
-            = f.submit "Update", class: "btn btn-primary"
+        = check_box_tag "instructor_ids[]", instructor.id
+        = link_to put_last_name(instructor.name), instructor_path(id: instructor.id)
+        %br
+      = select_tag :status, options_for_select(["Inactive", "Current", "Courtesy"], "Courtesy"), class: "form-control"
+      = submit_tag "Update", class: "btn btn-primary"
 
               
 %h3 &nbsp;&nbsp;Inactive
@@ -31,7 +32,8 @@
     = form_tag instructor_index_path, method: :post do
       - inst_list("status = 'Inactive'").each  do |instructor|
         = check_box_tag "instructor_ids[]", instructor.id
-        %li= link_to put_last_name(instructor.name), instructor_path(id: instructor.id)
+        = link_to put_last_name(instructor.name), instructor_path(id: instructor.id)
+        %br
       = select_tag :status, options_for_select(["Inactive", "Current", "Courtesy"], "Inactive"), class: "form-control"
       = submit_tag "Update", class: "btn btn-primary"
 
@@ -40,9 +42,10 @@
 .row
   .col-md-4
     %ul
-      - inst_list("status IS NULL").each do |instructor| 
-        %li= link_to put_last_name(instructor.name) , instructor_path(id: instructor.id)
-        = form_for instructor, method: :put, html: { } do |f|
-          .form-group
-            = f.select :status, options_for_select(["Current","Courtesy", "Inactive"], instructor.status), {}, class: "form-control"
-            = f.submit "Update", class: "btn btn-primary"
+    = form_tag instructor_index_path, method: :post do
+      - inst_list("status IS NULL").each  do |instructor|
+        = check_box_tag "instructor_ids[]", instructor.id
+        = link_to put_last_name(instructor.name), instructor_path(id: instructor.id)
+        %br
+      = select_tag :status, options_for_select(["Inactive", "Current", "Courtesy"], "NULL"), class: "form-control"
+      = submit_tag "Update", class: "btn btn-primary"
