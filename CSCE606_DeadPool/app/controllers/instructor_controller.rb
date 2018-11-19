@@ -13,6 +13,7 @@ class InstructorController < ApplicationController
     #   redirect_to instructor_index_path
     #   redirect_to :back
     # end
+    @inactive_instructors = inst_list("status = 'Inactive'")
   end
 
   def show
@@ -28,6 +29,17 @@ class InstructorController < ApplicationController
     @instructor.save
 
     # redirect_to instructor_path(id)
+    redirect_to instructor_index_path
+  end
+  
+  def create
+    if not params[:instructor_ids].nil?
+      params[:instructor_ids].each do |id|
+        instructor = Instructor.find(id.to_i)
+        instructor.assign_attributes({:status => params[:status]})
+        instructor.save
+      end
+    end
     redirect_to instructor_index_path
   end
 
