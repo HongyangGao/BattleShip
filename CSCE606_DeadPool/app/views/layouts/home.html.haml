@@ -1,4 +1,5 @@
 !!!
+
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
@@ -6,21 +7,26 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
-  %body.my_light_background
-    - if user_signed_in?
-      %ul.nav.nav-pills
-        %li{role: "presentation"}
-          = link_to "Home", "/" # root_path
-        %li{role: "presentation"}
-          - if user_signed_in?
-            = link_to "Sign out", destroy_user_session_path, method: :delete
-          - else
-            = link_to "Sign in", new_user_session_path
+    
+  // %body.my_light_background
+  // %body{:class => "skin-red"}
+  // %body.fixed.skin-red-light
+  %body
+    %nav{:class => "navbar navbar-expand-sm bg-dark navbar-dark"}
+      - if user_signed_in?
+        %ul.main-header.nav.nav-pills
+          %li{role: "presentation"}
+            = link_to "Home", "/" # root_path
+          %li{role: "presentation"}
+            - if user_signed_in?
+              = link_to "Sign out", destroy_user_session_path, method: :delete
+            - else
+              = link_to "Sign in", new_user_session_path
 
 
-  - if notice.present?
-    %div.alert.alert-info= notice
-  - if alert.present?
-    %div.alert.alert-warning= alert
+      - if notice.present?
+        %div.alert.alert-info= notice
+      - if alert.present?
+        %div.alert.alert-warning= alert
 
   = yield
