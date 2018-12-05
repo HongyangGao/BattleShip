@@ -22,9 +22,6 @@
             %li= link_to "View Missing Data", missing_data_evaluation_index_path
             %li= link_to "View Course Names", course_name_index_path
           
-        - else
-          %p= "please ask an administrator to authorize your account"
-          
           
         - if can? :manage, :all
           %h3 Manage User
